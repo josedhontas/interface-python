@@ -230,7 +230,7 @@ if __name__ == "__main__":
   root.frame_main.set_image(img)
   """
 
-  img = my.imread("images/lena256.tiff")
+  img = my.imread("images/lena_25.png")
   root.ic = ic.ImgCanvas(root)
   root.ic.set_image(img)
 
