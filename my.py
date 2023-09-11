@@ -55,7 +55,8 @@ def negative(im):
     return negative_image.astype(np.uint8)
 
 def contrast(im, r, m):
-    g = r * (im - m) + m
+    img = im
+    g = r * (img - m) + m
     g = np.clip(g, 0, 255)
     return g.astype(np.uint8)
 
