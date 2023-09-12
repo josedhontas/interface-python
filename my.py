@@ -84,7 +84,7 @@ def showhist(hist_values, binsize=1):
         plt.bar(range(num_bins), binned_hist, color='gray', alpha=0.7, label='gray')
     
     plt.xlabel('Intervalos de Intensidade')
-    plt.ylabel('Frequência')
+    plt.ylabel('Frequencia')
     plt.legend()
     plt.show()
 
