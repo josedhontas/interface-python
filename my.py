@@ -55,10 +55,11 @@ def negative(im):
     return negative_image.astype(np.uint8)
 
 def contrast(im, r, m):
-    img = im
+    img = im.astype(np.float32)
     g = r * (img - m) + m
     g = np.clip(g, 0, 255)
     return g.astype(np.uint8)
+
 
 def hist(im):
     if nchannels(im) == 1:
