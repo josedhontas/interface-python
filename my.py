@@ -196,3 +196,25 @@ def dilate(image, element):
 
     return output
 
+
+def dft2(image):
+    M, N = image.shape
+    dft_result = np.zeros((M, N), dtype=complex)
+    
+    for u in range(M):
+        for v in range(N):
+            dft_result[u, v] = np.sum(image * np.exp(-2j * np.pi * (u * np.arange(M) / M + v * np.arange(N) / N)))
+    
+    return dft_result
+
+def imshow_complex(im):
+    if np.iscomplexobj(im):
+        im = np.abs(im)
+    if len(im.shape) == 2:
+        cmap = cm.gray
+    else:
+        cmap = None
+    
+    plot = plt.imshow(im, cmap=cmap, origin="upper")
+    plot.set_interpolation('nearest')
+    plt.show()
