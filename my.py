@@ -17,13 +17,9 @@ def imshow(im):
     else:
         cmap = None
     
-    if im.dtype == np.complex128:
-        im = im.real  
-    
     plot = plt.imshow(im, cmap=cmap, origin="upper")
     plot.set_interpolation('nearest')
     plt.show()
-
 
 def nchannels(im):
     #print(im.shape)
@@ -199,36 +195,4 @@ def dilate(image, element):
                 output[y - pad_height, x - pad_width] = padded_image[y, x]
 
     return output
-
-
-def DFT(im):
-    M, N, C = im.shape
-    u = np.arange(M)
-    v = np.arange(N)
-    u, v = np.meshgrid(u, v)
-    x = np.exp(-1j * 2 * np.pi / M)
-    y = np.exp(-1j * 2 * np.pi / N)
-    DFT_matrix = x**(u * u / M) * y**(v * v / N)
-    
-    F = np.zeros_like(im, dtype=np.complex128)
-    for c in range(C):
-        F[..., c] = np.dot(DFT_matrix, np.dot(im[..., c], DFT_matrix))
-    
-    return F
-
-def IDFT(F):
-    M, N, C = F.shape
-    u = np.arange(M)
-    v = np.arange(N)
-    u, v = np.meshgrid(u, v)
-    x = np.exp(1j * 2 * np.pi / M)
-    y = np.exp(1j * 2 * np.pi / N)
-    IDFT_matrix = (1/(M*N)) * x**(-u * u / M) * y**(-v * v / N)
-    
-    im = np.zeros_like(F, dtype=np.float64)
-    for c in range(C):
-        im[..., c] = np.dot(IDFT_matrix, np.dot(F[..., c], IDFT_matrix)).real
-    
-    return im
-
 
