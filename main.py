@@ -1,6 +1,7 @@
 from my import *
 
-image = imread("images\sin_all.gif")
+img = imread("images\lena_gray.png")
 
-dft_result = dft2(image)
+dft_result = dft2(img)
 imshow_complex(dft_result)
+

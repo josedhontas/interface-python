@@ -218,3 +218,28 @@ def imshow_complex(im):
     plot = plt.imshow(im, cmap=cmap, origin="upper")
     plot.set_interpolation('nearest')
     plt.show()
+
+def dft2(image):
+    if len(image.shape) == 3 and image.shape[2] == 3:
+        image = rgb2gray(image)
+    dft_result = np.fft.fft2(image)
+    return dft_result
+
+
+def imshow_complex(dft_result):
+    magnitude = np.log(1 + np.abs(dft_result))
+    phase = np.angle(dft_result)
+
+    plt.figure(figsize=(12, 6))
+
+    plt.subplot(121)
+    plt.imshow(magnitude, cmap='gray')
+    plt.title('Magnitude')
+
+    plt.subplot(122)
+    plt.imshow(phase, cmap='gray')
+    plt.title('Phase')
+
+    plt.show()
+
+
