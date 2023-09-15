@@ -210,36 +210,42 @@ def dft2(image):
 def imshow_complex(im):
     if np.iscomplexobj(im):
         im = np.abs(im)
-    if len(im.shape) == 2:
-        cmap = cm.gray
-    else:
-        cmap = None
     
-    plot = plt.imshow(im, cmap=cmap, origin="upper")
-    plot.set_interpolation('nearest')
+    im = np.log1p(im)  
+    
+    im = (255 * (im - np.min(im)) / (np.max(im) - np.min(im))).astype(np.uint8)
+    
+    plt.imshow(im, cmap='gray')
     plt.show()
+'''
+def dft2(image):
+    M, N = image.shape
+    dft_result = np.zeros((M, N), dtype=complex)
+    
+    for u in range(M):
+        for v in range(N):
+            dft_result[u, v] = np.sum(image * np.exp(-2j * np.pi * (u * np.arange(M) / M + v * np.arange(N) / N)))
+    
+    return dft_result
+
+def idft2(dft_result):
+    M, N = dft_result.shape
+    idft_image = np.zeros((M, N), dtype=complex)
+    
+    for x in range(M):
+        for y in range(N):
+            idft_image[x, y] = np.sum(dft_result * np.exp(2j * np.pi * (x * np.arange(M) / M + y * np.arange(N) / N))) / (M * N)
+    
+    return idft_image.real
+ '''
 
 def dft2(image):
-    if len(image.shape) == 3 and image.shape[2] == 3:
-        image = rgb2gray(image)
     dft_result = np.fft.fft2(image)
     return dft_result
 
+def idft2(dft_result):
+    idft_image = np.fft.ifft2(dft_result)
+    return idft_image.real
 
-def imshow_complex(dft_result):
-    magnitude = np.log(1 + np.abs(dft_result))
-    phase = np.angle(dft_result)
-
-    plt.figure(figsize=(12, 6))
-
-    plt.subplot(121)
-    plt.imshow(magnitude, cmap='gray')
-    plt.title('Magnitude')
-
-    plt.subplot(122)
-    plt.imshow(phase, cmap='gray')
-    plt.title('Phase')
-
-    plt.show()
 
 
