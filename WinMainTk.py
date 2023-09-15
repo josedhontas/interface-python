@@ -172,6 +172,8 @@ class WinMainTk(tk.Frame):
 
         self.btn_histeq    = tk.Button(self.frame_right, text="histeq",    padx=3, width=BUTTON_WIDTH, command= self.cb_histeq)
         self.btn_blur      = tk.Button(self.frame_right, text="blur",      padx=3, width=BUTTON_WIDTH, command= self.cb_blur)
+        self.btn_new_button = tk.Button(self.frame_right, text="Novo Botão", padx=3, width=BUTTON_WIDTH)
+
 
         self.btn_kernel    = tk.Button(self.frame_right, text="set convolution kernel",      padx=3, width=BUTTON_WIDTH, command= self.cb_set_kernel)
         
@@ -197,6 +199,11 @@ class WinMainTk(tk.Frame):
 
         i = i + 1
         self.btn_kernel.grid(row=i, column=0, ipady=5)
+
+        i = i + 1
+        self.btn_new_button.grid(row=i, column=0, ipady=5)
+
+
 
 
     """#########################################################
