@@ -14,7 +14,7 @@ dft = cv2.dft(np.float32(img), flags=cv2.DFT_COMPLEX_OUTPUT)
 
 print(dft)
 
- '''
+'''
 
 #Output is a 2D complex array. 1st channel real and 2nd imaginary
 #For fft in opencv input image needs to be converted to float32
