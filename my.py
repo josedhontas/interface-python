@@ -4,6 +4,10 @@ import numpy as np
 import matplotlib.cm as cm
 
 def imread(filename):
+    if filename.endswith('.gif'):
+        im = mpimg.imread(filename)
+        return im
+
     im = mpimg.imread(filename)
     if im.dtype == np.float32:
         im = (im * 255).astype(np.uint8)
