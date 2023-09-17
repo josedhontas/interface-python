@@ -9,12 +9,12 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 
-img = cv2.imread('images/sin2.jpg', 0) # load an image
+img = cv2.imread('images/lena1.jpg', 0) # load an image
 dft = cv2.dft(np.float32(img), flags=cv2.DFT_COMPLEX_OUTPUT)
 
 print(dft)
 
-'''
+
 
 #Output is a 2D complex array. 1st channel real and 2nd imaginary
 #For fft in opencv input image needs to be converted to float32
@@ -104,5 +104,5 @@ ax4.title.set_text('After inverse FFT')
 plt.show()
 
 
-'''
+
 

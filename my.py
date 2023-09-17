@@ -211,16 +211,6 @@ def dft2(image):
     
     return dft_result
 
-def imshow_complex(im):
-    if np.iscomplexobj(im):
-        im = np.abs(im)
-    
-    im = np.log1p(im)  
-    
-    im = (255 * (im - np.min(im)) / (np.max(im) - np.min(im))).astype(np.uint8)
-    
-    plt.imshow(im, cmap='gray')
-    plt.show()
 '''
 def dft2(image):
     M, N = image.shape
@@ -243,13 +233,54 @@ def idft2(dft_result):
     return idft_image.real
  '''
 
-def dft2(image):
-    dft_result = np.fft.fft2(image)
-    return dft_result
+def imagefft(I):
+    F = np.fft.fft2(I)
+    
+    F = np.fft.fftshift(F)
+    
+    F = np.abs(F)
+    
+    F = np.log(F + 1)
+    
+    F = F / np.max(F)
+    
+    plt.imshow(F, cmap='gray')
+    plt.show()
 
 def idft2(dft_result):
     idft_image = np.fft.ifft2(dft_result)
     return idft_image.real
+
+def imagefft(I):
+    # Calcula a DFT 2D
+    F = np.fft.fft2(I)
+    
+    # Centraliza a DFT
+    F = np.fft.fftshift(F)
+    
+    # Obtém a magnitude (não é estritamente necessário)
+    magnitude = np.abs(F)
+    
+    # Aplica uma escala logarítmica (adiciona 1 para evitar log(0))
+    log_magnitude = np.log(magnitude + 1)
+    
+    # Renormaliza a magnitude para 0-255
+    normalized_magnitude = log_magnitude / np.max(log_magnitude) * 255
+    
+    # Calcula a IDFT 2D (inversa da DFT)
+    reconstructed_image = np.fft.ifft2(np.fft.ifftshift(F)).real
+    
+    # Exibe a magnitude e a imagem reconstruída
+    plt.subplot(121)
+    plt.imshow(normalized_magnitude, cmap='gray')
+    plt.title('Magnitude da DFT')
+    
+    plt.subplot(122)
+    plt.imshow(reconstructed_image, cmap='gray')
+    plt.title('Imagem Reconstruída')
+    
+    plt.show()
+
 
 
 
